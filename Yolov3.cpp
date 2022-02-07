@@ -151,12 +151,30 @@ int main()
 	//img_inference("resources", classes, weightfile);
 
 
-
-
-
-
 	// 2. YOLOv3 training with custom dataset
+	//2.1 load custom class files
+	const char* classfile = "resources/classnames.txt";
+	std::vector<std::string> classes = YOLOUTIL::class_names(classfile);
 
+	//2.2 initialize yolo model object
+	torch::Tensor vals = torch::rand({ 1,3,416,416 });
+	YOLO yolo(vals, 2);
+
+	//2.3 read custom dataset (images and labels)
+	auto data = YOLOUTIL::data_reader("resources", classes);
+	torch::Tensor input_tensors, input_labels;
+	input_tensors = std::get<0>(data); //training data
+	input_labels = std::get<1>(data); //training labels
+
+	auto val_data = YOLOUTIL::data_reader("resources/val", classes);
+	torch::Tensor val_input_tensors, val_input_labels;
+	val_input_tensors = std::get<0>(val_data); //training data
+	val_input_labels = std::get<1>(val_data); //training labels
+
+
+	//2.3 train the model
+	yolo.train(input_tensors, input_labels, val_input_tensors, val_input_labels, 32, 4000);
+	
 	return 0;
 }
 
