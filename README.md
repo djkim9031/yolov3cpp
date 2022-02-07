@@ -2,7 +2,8 @@
 YOLOv3 custom training and inference using C++
 
 
-Over the lunar new year I could work on migrate from the python code to C++.
+Over the lunar new year I could work on migrating the code from Python to C++.
+The compilier is simply the Visual Studio VSCC.
 The open source libraries used are "opencv2" and "libtorch"
 
 Features:
