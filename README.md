@@ -9,3 +9,7 @@ Features:
 1. Custom training
 2. Inference
 3. Loading the pretrained YOLOv3 weights
+
+
+TODO:
+Training on GPU, distributed training. How to do it with libtorch? (under review)
